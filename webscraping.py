@@ -15,7 +15,7 @@ service = Service("C:/Users/Ayush Pratap Singh/Downloads/chromedriver-win64/chro
 driver = webdriver.Chrome(service=service)
 
 # Open the website
-driver.get('https://questions.examside.com/past-years/medical/question/pin-an-electrical-circuit-the-voltage-is-measured-as-v-neet-physics-units-and-measurement-wcruwr8r9njsklel')
+driver.get('https://questions.examside.com/past-years/medical/question/pa-bob-is-whirled-in-a-horizontal-circle-by-means-of-a-str-neet-physics-units-and-measurement-a1ywbaz1hp11jcmo')
 
 # Wait for the page to load fully
 time.sleep(3)
@@ -27,7 +27,7 @@ count = 0
 data = []
 
 # Loop through the pages until the defined number of pages
-total_pages_to_scrape = 3  # Define how many pages you want to scrape
+total_pages_to_scrape = 5  # Define how many pages you want to scrape
 for i in range(total_pages_to_scrape):
   
     # print(Fore.RED + Back.YELLOW + f"\n\n Scraping started on Page No {page_seen+1}\n" + Style.RESET_ALL)
@@ -76,6 +76,8 @@ for i in range(total_pages_to_scrape):
         try:
             question = driver.find_element(By.CSS_SELECTOR, question_css_sel[index])
             question_html = question.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+            if '<img>' in question_html:
+                break
             question_data["question"] = question_html
         except Exception as e:
             print(f"Error locating question: {e}")
@@ -86,10 +88,14 @@ for i in range(total_pages_to_scrape):
             options_container = driver.find_element(By.CSS_SELECTOR, options_css_sel[index])
             options = options_container.find_elements(By.CSS_SELECTOR, "div.grow.question.xl\:text-lg")
 
+            imgy = 0
             print(f"Found {len(options)} options for question {index + 1}")
             if len(options) == 4:
                 for i, option in enumerate(options):
                     option_html = option.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+                    if '<img>' in option_html:
+                        imgy = 1
+                        break
                     question_data[f"option {i + 1}"] = option_html
 
                     # Get the CSS color value
@@ -104,10 +110,15 @@ for i in range(total_pages_to_scrape):
         except Exception as e:
             print(f"Error locating options: {e}")
 
+        if imgy == 1:
+            break
+        
         # Locate the answer and correct option
         try:
             answer = driver.find_element(By.CSS_SELECTOR, answer_css_sel[index])
             answer_html = answer.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+            if '<img>' in answer_html:
+                break
             question_data["answer"] = answer_html
         except Exception as e:
             print(f"Error locating answer: {e}")
@@ -119,7 +130,7 @@ for i in range(total_pages_to_scrape):
 
     # Click the NEXT button to go to the next page
     try:
-        next_button = driver.find_element(By.CSS_SELECTOR, "a.bg-blue-600.text-white")  # Use link text to find the NEXT button
+        next_button = driver.find_element(By.LINK_TEXT, "NEXT")  # Use link text to find the NEXT button
         driver.execute_script("arguments[0].click();", next_button)  # Click the NEXT button to load the next set of questions
         time.sleep(3)  # Wait for the new questions to load
     except Exception as e:
@@ -134,7 +145,11 @@ for i in range(total_pages_to_scrape):
 driver.quit()
 
 # Write data to a JSON file with all double quotes replaced with single quotes and no newline characters
-with open('questions_data.json', 'w', encoding='utf-8') as json_file:
+folder_path = './Data/NEET/Physics/3_Motion_in_a_Plane'  # Change this to your desired folder path
+
+# Write data to a JSON file in the specified folder
+json_file_path = folder_path + '.json'
+with open(json_file_path, 'w', encoding='utf-8') as json_file:
     json.dump(data, json_file, ensure_ascii=False, indent=4)
 
 print(f"Data has been successfully saved to questions_data.json.\nTotal questions saved = {count}\nPage seen = {page_seen}")

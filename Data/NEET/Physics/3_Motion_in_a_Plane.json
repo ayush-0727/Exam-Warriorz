@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MathJax Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-<body>
-    [
+[
     {
         "question": "<div class='question xl:text-lg px-4 py-2.5'><p>A bob is whirled in a horizontal circle by means of a string at an initial speed of <mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mn class='mjx-n'><mjx-c class='mjx-c31'></mjx-c><mjx-c class='mjx-c30'></mjx-c></mjx-mn><mjx-texatom texclass='ORD'><mjx-mtext style='font-family: MJXZERO, Roboto, &quot;Tiro Bangla&quot;, &quot;Tiro Devanagari Hindi&quot;, sans-serif;'><mjx-utext variant='-explicitFont' style='font-size: 83.7%; padding: 0.896em 0px 0.239em; width: 4px;'>&nbsp;</mjx-utext></mjx-mtext><mjx-mi class='mjx-n'><mjx-c class='mjx-c72'></mjx-c><mjx-c class='mjx-c70'></mjx-c><mjx-c class='mjx-c6D'></mjx-c></mjx-mi></mjx-texatom></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mn class='mjx-n'><mjx-c class='mjx-c31'></mjx-c><mjx-c class='mjx-c30'></mjx-c></mjx-mn><mjx-texatom texclass='ORD'><mjx-mtext style='font-family: MJXZERO, Roboto, &quot;Tiro Bangla&quot;, &quot;Tiro Devanagari Hindi&quot;, sans-serif;'><mjx-utext variant='-explicitFont' style='font-size: 83.7%; padding: 0.896em 0px 0.239em; width: 5px;'>&nbsp;</mjx-utext></mjx-mtext><mjx-mi class='mjx-n'><mjx-c class='mjx-c72'></mjx-c><mjx-c class='mjx-c70'></mjx-c><mjx-c class='mjx-c6D'></mjx-c></mjx-mi></mjx-texatom></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><math xmlns='http://www.w3.org/1998/Math/MathML'><mn>10</mn><mrow data-mjx-texclass='ORD'><mtext>&nbsp;</mtext><mi data-mjx-auto-op='false'>rpm</mi></mrow></math></mjx-assistive-mml></mjx-container></mjx-assistive-mml></mjx-container>. If the tension in the string is quadrupled while keeping the radius constant, the new speed is:</p></div>",
         "option 1": "<div class='grow question xl:text-lg'>20 rpm</div>",
@@ -189,5 +180,3 @@
         "correct_option": "1"
     }
 ]
-</body>
-</html>
