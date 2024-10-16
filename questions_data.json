@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MathJax Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-<body>
-    [
+[
     {
         "question": "<div class='question xl:text-lg px-4 py-2.5'><p>The de-Broglie wavelength associated with a particle of mass <mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D45A TEX-I'></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D45A TEX-I'></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><math xmlns='http://www.w3.org/1998/Math/MathML'><mi>m</mi></math></mjx-assistive-mml></mjx-container></mjx-assistive-mml></mjx-container> and energy <mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D438 TEX-I'></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D438 TEX-I'></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><math xmlns='http://www.w3.org/1998/Math/MathML'><mi>E</mi></math></mjx-assistive-mml></mjx-container></mjx-assistive-mml></mjx-container> is <mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mi class='mjx-i'><mjx-c class='mjx-c210E TEX-I'></mjx-c></mjx-mi><mjx-texatom texclass='ORD'><mjx-mo class='mjx-n'><mjx-c class='mjx-c2F'></mjx-c></mjx-mo></mjx-texatom><mjx-msqrt><mjx-sqrt><mjx-surd><mjx-mo class='mjx-n'><mjx-c class='mjx-c221A'></mjx-c></mjx-mo></mjx-surd><mjx-box style='padding-top: 0.162em;'><mjx-mn class='mjx-n'><mjx-c class='mjx-c32'></mjx-c></mjx-mn><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D45A TEX-I'></mjx-c></mjx-mi><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D438 TEX-I'></mjx-c></mjx-mi></mjx-box></mjx-sqrt></mjx-msqrt></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><mjx-container class='MathJax' jax='CHTML' style='font-size: 119.5%; position: relative;'><mjx-math class='MJX-TEX' aria-hidden='true'><mjx-mi class='mjx-i'><mjx-c class='mjx-c210E TEX-I'></mjx-c></mjx-mi><mjx-texatom texclass='ORD'><mjx-mo class='mjx-n'><mjx-c class='mjx-c2F'></mjx-c></mjx-mo></mjx-texatom><mjx-msqrt><mjx-sqrt><mjx-surd><mjx-mo class='mjx-n'><mjx-c class='mjx-c221A'></mjx-c></mjx-mo></mjx-surd><mjx-box style='padding-top: 0.162em;'><mjx-mn class='mjx-n'><mjx-c class='mjx-c32'></mjx-c></mjx-mn><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D45A TEX-I'></mjx-c></mjx-mi><mjx-mi class='mjx-i'><mjx-c class='mjx-c1D438 TEX-I'></mjx-c></mjx-mi></mjx-box></mjx-sqrt></mjx-msqrt></mjx-math><mjx-assistive-mml unselectable='on' display='inline'><math xmlns='http://www.w3.org/1998/Math/MathML'><mi>h</mi><mrow data-mjx-texclass='ORD'><mo>/</mo></mrow><msqrt><mn>2</mn><mi>m</mi><mi>E</mi></msqrt></math></mjx-assistive-mml></mjx-container></mjx-assistive-mml></mjx-container>. The dimensional formula for Planck's constant is :</p></div>",
         "options": [
@@ -121,5 +112,3 @@
         "correct_option": null
     }
 ]
-</body>
-</html>

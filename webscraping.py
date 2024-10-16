@@ -6,6 +6,30 @@ import sys
 import json
 from colorama import Fore, Back, Style
 
+def extract_options_and_answer(options_html):
+    soup = BeautifulSoup(options_html, "html.parser")
+    options_data = []
+    correct_answer = None
+
+    # Find all options
+    options = soup.find_all("div", class_="options")
+    
+    for option in options:
+        option_text = option.get_text(strip=True)
+        option_letter = option.find("div", class_="shrink-0").text.strip()  # e.g., 'A', 'B', 'C', 'D'
+        
+        # Check if this option contains the "Correct Answer" label
+        if "Correct Answer" in option_text:
+            correct_answer = option_letter
+        
+        # Store the option data
+        options_data.append({
+            'option_letter': option_letter,
+            'option_text': option_text,
+        })
+    
+    return correct_answer
+
 # Reconfigure sys.stdout to use UTF-8 encoding
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -16,12 +40,13 @@ service = Service("C:/Users/Ayush Pratap Singh/Downloads/chromedriver-win64/chro
 driver = webdriver.Chrome(service=service)
 
 # Open the website
-driver.get('https://questions.examside.com/past-years/medical/question/pin-an-electrical-circuit-the-voltage-is-measured-as-v-neet-physics-units-and-measurement-wcruwr8r9njsklel')
+driver.get('https://questions.examside.com/past-years/jee/question/pthe-de-broglie-wavelength-associated-with-a-particle-of-m-jee-main-physics-motion-v4tpf3ffzl2qzjtd')
 
 # Wait for the page to load fully
 time.sleep(3)
 
 page_seen = 0
+count = 0
 
 # Initialize a list to store all questions
 data = []
@@ -67,12 +92,13 @@ for i in range(5):
             question_data["question"] = None
             question_data["options"] = []
             question_data["answer"] = None
+            question_data["correct_option"] = None
             
             print(Fore.RED + Back.WHITE + f"\n\n Question No: {index + 1}\n" + Style.RESET_ALL)
             # Locate question
             try:
                 question = driver.find_element(By.CSS_SELECTOR, question_css_sel[index])
-                question_html = question.get_attribute('outerHTML')
+                question_html = question.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
                 question_data["question"] = question_html
                 print(f"Question HTML: {question_html}")
             except Exception as e:
@@ -84,24 +110,29 @@ for i in range(5):
             try:
                 options = driver.find_elements(By.CSS_SELECTOR, options_css_sel[index])
                 for i, option in enumerate(options):
-                    option_html = option.get_attribute('outerHTML')
+                    option_html = option.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
                     question_data["options"].append(option_html)
                     print(f"Option {i + 1} HTML: {option_html}")
             except Exception as e:
                 print(f"Error locating options: {e}")
 
             print(Fore.RED + Back.WHITE + f"\n\n Answers for Question No: {index + 1}\n" + Style.RESET_ALL)
-            # Locate the answer
+            # Locate the answer and correct option
             try:
                 answer = driver.find_element(By.CSS_SELECTOR, answer_css_sel[index])
-                answer_html = answer.get_attribute('outerHTML')
+                answer_html = answer.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
                 question_data["answer"] = answer_html
                 print(f"Answer HTML: {answer_html}")
+
+                question_data["correct_option"] = extract_options_and_answer(option_html)
             except Exception as e:
                 print(f"Error locating answer: {e}")
 
             # Append question data to the main list
-            data.append(question_data)
+            if question_data["answer"] is not None:
+                data.append(question_data)
+                count = count + 1
+
 
         try:
             next_button = driver.find_element(By.LINK_TEXT, 'NEXT')  # Use link text to find the NEXT button
@@ -118,8 +149,8 @@ for i in range(5):
 # Close the browser once done
 driver.quit()
 
-# Write data to a JSON file
+# Write data to a JSON file with all double quotes replaced with single quotes and no newline characters
 with open('questions_data.json', 'w', encoding='utf-8') as json_file:
     json.dump(data, json_file, ensure_ascii=False, indent=4)
 
-print("Data has been successfully saved to questions_data.json.")
+print(f"Data has been successfully saved to questions_data.json.\n Total questions saved = {count}")
