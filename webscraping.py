@@ -6,30 +6,6 @@ import sys
 import json
 from colorama import Fore, Back, Style
 
-def extract_options_and_answer(options_html):
-    soup = BeautifulSoup(options_html, "html.parser")
-    options_data = []
-    correct_answer = None
-
-    # Find all options
-    options = soup.find_all("div", class_="options")
-    
-    for option in options:
-        option_text = option.get_text(strip=True)
-        option_letter = option.find("div", class_="shrink-0").text.strip()  # e.g., 'A', 'B', 'C', 'D'
-        
-        # Check if this option contains the "Correct Answer" label
-        if "Correct Answer" in option_text:
-            correct_answer = option_letter
-        
-        # Store the option data
-        options_data.append({
-            'option_letter': option_letter,
-            'option_text': option_text,
-        })
-    
-    return correct_answer
-
 # Reconfigure sys.stdout to use UTF-8 encoding
 sys.stdout.reconfigure(encoding='utf-8')
 
