@@ -41,28 +41,28 @@ for i in range(5):
         except Exception as e:
             print(f"Error clicking the Check Answer button: {e}")
 
-        question_css_sel = [
+    question_css_sel = [
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(3) > div.flex.flex-col.gap-2.max-md\:card.max-md\:pt-3 > div.question.xl\:text-lg.px-4.py-2\.5",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(4) > div.flex.flex-col.gap-2.max-md\:card.max-md\:pt-3 > div.question.xl\:text-lg.px-4.py-2\.5",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(6) > div.flex.flex-col.gap-2.max-md\:card.max-md\:pt-3 > div.question.xl\:text-lg.px-4.py-2\.5",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(7) > div.flex.flex-col.gap-2.max-md\:card.max-md\:pt-3 > div.question.xl\:text-lg.px-4.py-2\.5"
         ]
 
-        answer_css_sel = [
+    answer_css_sel = [
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(3) > div.flex.flex-col.gap-2.max-md\:card.max-md\:py-2 > div",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(4) > div.flex.flex-col.gap-2.max-md\:card.max-md\:py-2 > div",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(6) > div.flex.flex-col.gap-2.max-md\:card.max-md\:py-2 > div",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(7) > div.flex.flex-col.gap-2.max-md\:card.max-md\:py-2 > div"
         ]
 
-        options_css_sel = [
+    options_css_sel = [
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(3) > div.options.md\:px-4.flex.flex-col.gap-2.lg\:gap-4",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(4) > div.options.md\:px-4.flex.flex-col.gap-2.lg\:gap-4",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(6) > div.options.md\:px-4.flex.flex-col.gap-2.lg\:gap-4",
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(7) > div.options.md\:px-4.flex.flex-col.gap-2.lg\:gap-4"
         ]
 
-        for index in range(0, 4):
+    for index in range(0, 4):
             question_data = {}
             question_data["question"] = None
             question_data["option 1"] = []
@@ -125,11 +125,10 @@ for i in range(5):
                 count = count + 1
 
 
-        try:
-            next_button = driver.find_element(By.LINK_TEXT, 'NEXT')  # Use link text to find the NEXT button
+    try:
             next_button.click()  # Click the NEXT button to load the next set of questions
             time.sleep(3)  # Wait for the new questions to load
-        except Exception as e:
+    except Exception as e:
             print("No more pages to navigate or error occurred:", e)
             break
 
