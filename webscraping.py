@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 import time
 import sys
 import json
-from colorama import Fore, Back, Style
 
 # Reconfigure sys.stdout to use UTF-8 encoding
 sys.stdout.reconfigure(encoding='utf-8')
@@ -16,7 +15,7 @@ service = Service("C:/Users/Ayush Pratap Singh/Downloads/chromedriver-win64/chro
 driver = webdriver.Chrome(service=service)
 
 # Open the website
-driver.get('https://questions.examside.com/past-years/jee/question/pthe-de-broglie-wavelength-associated-with-a-particle-of-m-jee-main-physics-motion-v4tpf3ffzl2qzjtd')
+driver.get('https://questions.examside.com/past-years/medical/question/pin-an-electrical-circuit-the-voltage-is-measured-as-v-neet-physics-units-and-measurement-wcruwr8r9njsklel')
 
 # Wait for the page to load fully
 time.sleep(3)
@@ -27,12 +26,13 @@ count = 0
 # Initialize a list to store all questions
 data = []
 
-# Loop through the pages until there are no more questions
-for i in range(5):
-    next_button = driver.find_element(By.LINK_TEXT, 'NEXT')  # Use link text to find the NEXT button
+# Loop through the pages until the defined number of pages
+total_pages_to_scrape = 3  # Define how many pages you want to scrape
+for i in range(total_pages_to_scrape):
   
     # print(Fore.RED + Back.YELLOW + f"\n\n Scraping started on Page No {page_seen+1}\n" + Style.RESET_ALL)
 
+    # Scraping questions and options for a single page
     for _ in range(0, 4):
         try:
             check_answer_button = driver.find_element(By.CSS_SELECTOR, "button[aria-label='Check Answer Button']")  # Using aria-label to find the button
@@ -63,74 +63,68 @@ for i in range(5):
         ]
 
     for index in range(0, 4):
-            question_data = {}
-            question_data["question"] = None
-            question_data["option 1"] = []
-            question_data["option 2"] = []
-            question_data["option 3"] = []
-            question_data["option 4"] = []
-            question_data["answer"] = None
-            question_data["correct_option"] = None
-            
-            # print(Fore.RED + Back.WHITE + f"\n\n Question No: {index + 1}\n" + Style.RESET_ALL)
-            # Locate question
-            try:
-                question = driver.find_element(By.CSS_SELECTOR, question_css_sel[index])
-                question_html = question.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
-                question_data["question"] = question_html
-                # print(f"Question HTML: {question_html}")
-            except Exception as e:
-                print(f"Error locating question: {e}")
-                break
-            
-            # print(Fore.RED + Back.WHITE + f"\n\n Options for Question No: {index + 1}\n" + Style.RESET_ALL)
-            # Locate the options
-            try:
-                options_container = driver.find_element(By.CSS_SELECTOR, options_css_sel[index])
-                options = options_container.find_elements(By.CSS_SELECTOR, "div.grow.question.xl\:text-lg")
-        
-                print(f"Found {len(options)} options for question {index + 1}")
-                if len(options) == 4:
-                    for i, option in enumerate(options):
-                        option_html = option.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
-                        question_data[f"option {i + 1}"] = option_html
+        question_data = {}
+        question_data["question"] = None
+        question_data["option 1"] = []
+        question_data["option 2"] = []
+        question_data["option 3"] = []
+        question_data["option 4"] = []
+        question_data["answer"] = None
+        question_data["correct_option"] = None
 
-                # Get the CSS color value
-                        color = option.value_of_css_property("color")
-                        print(f"Option {i + 1} color: {color}")
-
-                # Compare the color to determine the correct option
-                        if color == "rgba(34, 197, 94, 1)":  # This is the color for the correct option
-                            question_data["correct_option"] = f"{i + 1}"
-                else:
-                    print(f"Expected 4 options, but found {len(options)} for question {index + 1}")
-            except Exception as e:
-                print(f"Error locating options: {e}")
-
-            # print(Fore.RED + Back.WHITE + f"\n\n Answers for Question No: {index + 1}\n" + Style.RESET_ALL)
-            # Locate the answer and correct option
-            try:
-                answer = driver.find_element(By.CSS_SELECTOR, answer_css_sel[index])
-                answer_html = answer.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
-                question_data["answer"] = answer_html
-                # print(f"Answer HTML: {answer_html}")
-
-                # question_data["correct_option"] = extract_options_and_answer(option_html)
-            except Exception as e:
-                print(f"Error locating answer: {e}")
-
-            # Append question data to the main list
-            if question_data["answer"] is not None:
-                data.append(question_data)
-                count = count + 1
-
-
-    try:
-            next_button.click()  # Click the NEXT button to load the next set of questions
-            time.sleep(3)  # Wait for the new questions to load
-    except Exception as e:
-            print("No more pages to navigate or error occurred:", e)
+        # Locate question
+        try:
+            question = driver.find_element(By.CSS_SELECTOR, question_css_sel[index])
+            question_html = question.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+            question_data["question"] = question_html
+        except Exception as e:
+            print(f"Error locating question: {e}")
             break
+
+        # Locate the options
+        try:
+            options_container = driver.find_element(By.CSS_SELECTOR, options_css_sel[index])
+            options = options_container.find_elements(By.CSS_SELECTOR, "div.grow.question.xl\:text-lg")
+
+            print(f"Found {len(options)} options for question {index + 1}")
+            if len(options) == 4:
+                for i, option in enumerate(options):
+                    option_html = option.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+                    question_data[f"option {i + 1}"] = option_html
+
+                    # Get the CSS color value
+                    color = option.value_of_css_property("color")
+                    print(f"Option {i + 1} color: {color}")
+
+                    # Compare the color to determine the correct option
+                    if color == "rgba(34, 197, 94, 1)":  # This is the color for the correct option
+                        question_data["correct_option"] = f"{i + 1}"
+            else:
+                print(f"Expected 4 options, but found {len(options)} for question {index + 1}")
+        except Exception as e:
+            print(f"Error locating options: {e}")
+
+        # Locate the answer and correct option
+        try:
+            answer = driver.find_element(By.CSS_SELECTOR, answer_css_sel[index])
+            answer_html = answer.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+            question_data["answer"] = answer_html
+        except Exception as e:
+            print(f"Error locating answer: {e}")
+
+        # Append question data to the main list
+        if question_data["answer"] is not None:
+            data.append(question_data)
+            count += 1
+
+    # Click the NEXT button to go to the next page
+    try:
+        next_button = driver.find_element(By.CSS_SELECTOR, "a.bg-blue-600.text-white")  # Use link text to find the NEXT button
+        driver.execute_script("arguments[0].click();", next_button)  # Click the NEXT button to load the next set of questions
+        time.sleep(3)  # Wait for the new questions to load
+    except Exception as e:
+        print("No more pages to navigate or error occurred:", e)
+        break
 
     # Seen all questions on a single page
     page_seen += 1
@@ -143,4 +137,5 @@ driver.quit()
 with open('questions_data.json', 'w', encoding='utf-8') as json_file:
     json.dump(data, json_file, ensure_ascii=False, indent=4)
 
-print(f"Data has been successfully saved to questions_data.json.\n Total questions saved = {count}")
+print(f"Data has been successfully saved to questions_data.json.\nTotal questions saved = {count}\nPage seen = {page_seen}")
+
