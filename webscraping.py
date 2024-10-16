@@ -15,7 +15,7 @@ service = Service("C:/Users/Ayush Pratap Singh/Downloads/chromedriver-win64/chro
 driver = webdriver.Chrome(service=service)
 
 # Open the website
-driver.get('https://questions.examside.com/past-years/medical/question/pa-bob-is-whirled-in-a-horizontal-circle-by-means-of-a-str-neet-physics-units-and-measurement-a1ywbaz1hp11jcmo')
+driver.get('https://questions.examside.com/past-years/medical/question/pan-object-moving-along-horizontal-x-direction-with-ki-neet-physics-units-and-measurement-nujocs1stoazcqcs')
 
 # Wait for the page to load fully
 time.sleep(3)
@@ -145,7 +145,7 @@ for i in range(total_pages_to_scrape):
 driver.quit()
 
 # Write data to a JSON file with all double quotes replaced with single quotes and no newline characters
-folder_path = './Data/NEET/Physics/3_Motion_in_a_Plane'  # Change this to your desired folder path
+folder_path = './Data/NEET/Physics/5_Work_Energy_and_Power'  # Change this to your desired folder path
 
 # Write data to a JSON file in the specified folder
 json_file_path = folder_path + '.json'
