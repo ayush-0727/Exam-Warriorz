@@ -31,7 +31,7 @@ data = []
 for i in range(5):
     next_button = driver.find_element(By.LINK_TEXT, 'NEXT')  # Use link text to find the NEXT button
   
-    print(Fore.RED + Back.YELLOW + f"\n\n Scraping started on Page No {page_seen+1}\n" + Style.RESET_ALL)
+    # print(Fore.RED + Back.YELLOW + f"\n\n Scraping started on Page No {page_seen+1}\n" + Style.RESET_ALL)
 
     for _ in range(0, 4):
         try:
@@ -62,45 +62,60 @@ for i in range(5):
             r"body > div:nth-child(1) > div.app > main > div > div > div.main-container.flex.flex-wrap.gap-2.lg\:gap-4 > div.flex-grow.flex.flex-col.gap-2.lg\:gap-4 > div:nth-child(7) > div.options.md\:px-4.flex.flex-col.gap-2.lg\:gap-4"
         ]
 
-        # Locate the question
         for index in range(0, 4):
             question_data = {}
             question_data["question"] = None
-            question_data["options"] = []
+            question_data["option 1"] = []
+            question_data["option 2"] = []
+            question_data["option 3"] = []
+            question_data["option 4"] = []
             question_data["answer"] = None
             question_data["correct_option"] = None
             
-            print(Fore.RED + Back.WHITE + f"\n\n Question No: {index + 1}\n" + Style.RESET_ALL)
+            # print(Fore.RED + Back.WHITE + f"\n\n Question No: {index + 1}\n" + Style.RESET_ALL)
             # Locate question
             try:
                 question = driver.find_element(By.CSS_SELECTOR, question_css_sel[index])
                 question_html = question.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
                 question_data["question"] = question_html
-                print(f"Question HTML: {question_html}")
+                # print(f"Question HTML: {question_html}")
             except Exception as e:
                 print(f"Error locating question: {e}")
                 break
             
-            print(Fore.RED + Back.WHITE + f"\n\n Options for Question No: {index + 1}\n" + Style.RESET_ALL)
+            # print(Fore.RED + Back.WHITE + f"\n\n Options for Question No: {index + 1}\n" + Style.RESET_ALL)
             # Locate the options
             try:
-                options = driver.find_elements(By.CSS_SELECTOR, options_css_sel[index])
-                for i, option in enumerate(options):
-                    option_html = option.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
-                    question_data["options"].append(option_html)
-                    print(f"Option {i + 1} HTML: {option_html}")
+                options_container = driver.find_element(By.CSS_SELECTOR, options_css_sel[index])
+                options = options_container.find_elements(By.CSS_SELECTOR, "div.grow.question.xl\:text-lg")
+        
+                print(f"Found {len(options)} options for question {index + 1}")
+                if len(options) == 4:
+                    for i, option in enumerate(options):
+                        option_html = option.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
+                        question_data[f"option {i + 1}"] = option_html
+
+                # Get the CSS color value
+                        color = option.value_of_css_property("color")
+                        print(f"Option {i + 1} color: {color}")
+
+                # Compare the color to determine the correct option
+                        if color == "rgba(34, 197, 94, 1)":  # This is the color for the correct option
+                            question_data["correct_option"] = f"{i + 1}"
+                else:
+                    print(f"Expected 4 options, but found {len(options)} for question {index + 1}")
             except Exception as e:
                 print(f"Error locating options: {e}")
 
-            print(Fore.RED + Back.WHITE + f"\n\n Answers for Question No: {index + 1}\n" + Style.RESET_ALL)
+            # print(Fore.RED + Back.WHITE + f"\n\n Answers for Question No: {index + 1}\n" + Style.RESET_ALL)
             # Locate the answer and correct option
             try:
                 answer = driver.find_element(By.CSS_SELECTOR, answer_css_sel[index])
                 answer_html = answer.get_attribute('outerHTML').replace('"', "'").replace("\n", "")
                 question_data["answer"] = answer_html
-                print(f"Answer HTML: {answer_html}")
+                # print(f"Answer HTML: {answer_html}")
 
-                question_data["correct_option"] = extract_options_and_answer(option_html)
+                # question_data["correct_option"] = extract_options_and_answer(option_html)
             except Exception as e:
                 print(f"Error locating answer: {e}")
 
